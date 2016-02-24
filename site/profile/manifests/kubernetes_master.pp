@@ -6,10 +6,10 @@ class profile::kubernetes_master {
 
   # Configure /etc/etcd/etcd.conf for use as kubernetes master
   class { 'etcd':
-    ensure                  => 'latest',
-    etcd_listen_client_urls => 'http://0.0.0.0:2379',
-    etcd_name               => 'default',
-    advertise_client_urls   => 'http://localhost:2379',
+    ensure                => 'latest',
+    listen_client_urls    => 'http://0.0.0.0:2379',
+    etcd_name             => 'default',
+    advertise_client_urls => 'http://localhost:2379',
   }
 
   # Configure Kubernetes API server inside /etc/kubernetes/apiserver
