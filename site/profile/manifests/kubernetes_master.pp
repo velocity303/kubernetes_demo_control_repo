@@ -98,4 +98,11 @@ class profile::kubernetes_master {
     require => [Package['kubernetes'],Service['kube-scheduler']],
   }
 
+  @@file { '/etc/puppetlabs/facter/facts.d/kube_master_ip.yaml':
+      ensure  => present,
+      content => "---
+      kube_master_ip: ${::fqdn}",
+      tag => 'kubernetes',
+  }
+
 }

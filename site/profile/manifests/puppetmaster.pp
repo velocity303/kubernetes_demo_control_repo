@@ -69,11 +69,9 @@ class profile::puppetmaster {
     provider => puppetserver_gem,
   }
 
-  $kube_master_ip = generate('/bin/sh', '-c', '/bin/ping -c 1 kubernetes_master | /bin/head -1 | /bin/cut -d")" -f 1 | /bin/cut -d"(" -f 2')
-  notify { "the value is ${kube_master_ip}": }
-  file { '/etc/puppetlabs/puppet/kubernetes.conf':
-    ensure  => present,
-    content => template('profile/kubernetes.conf.erb'),
-  }
+  file { '/etc/puppetlabs/facter':
+    ensure  => directory,
+  }->
+  File <<| tag = 'kubernetes' |>>
 
 }
