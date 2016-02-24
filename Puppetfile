@@ -11,7 +11,6 @@ mod "puppetlabs/firewall", :latest
 mod "nanliu/staging", :latest
 mod "lwf/remote_file", :latest
 mod "garethr/kubernetes", :latest
-mod "cristifalcas/etcd", :latest
 
 #An example of using a specific forge module version instead of latest
 #Notice the addition of single quotes
@@ -27,3 +26,6 @@ mod 'gms',
 mod 'hiera',
   :git => 'https://github.com/hunner/puppet-hiera',
   :tag => '1.3.1'
+
+mod 'etcd',
+	:git => 'https://github.com/velocity303/puppet-etcd.git'
