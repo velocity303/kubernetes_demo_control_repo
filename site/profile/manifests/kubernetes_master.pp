@@ -12,6 +12,9 @@ class profile::kubernetes_master {
     advertise_client_urls => 'http://localhost:2379',
   }
 
+  etcd_key { '/atomic.io/network/config':
+    value => '{"Network":"172.17.0.0/16"}'
+  }
   # Configure Kubernetes API server inside /etc/kubernetes/apiserver
   ini_setting { 'kube_api_address setting':
     ensure  => present,
