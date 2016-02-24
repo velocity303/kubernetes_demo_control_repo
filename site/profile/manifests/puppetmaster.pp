@@ -72,6 +72,6 @@ class profile::puppetmaster {
   file { '/etc/puppetlabs/facter':
     ensure  => directory,
   }->
-  File <<| tag = 'kubernetes' |>>
+  File <<| tag == 'kubernetes' |>>
 
 }
