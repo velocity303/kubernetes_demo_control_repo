@@ -41,20 +41,38 @@ class profile::puppetmaster {
   }
 
   file { '/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa':
-    ensure  => present,
-    owner   => 'pe-puppet',
-    group   => 'pe-puppet',
+    ensure => present,
+    owner  => 'pe-puppet',
+    group  => 'pe-puppet',
   }
   file { '/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa.pub':
-    ensure  => present,
-    owner   => 'pe-puppet',
-    group   => 'pe-puppet',
+    ensure => present,
+    owner  => 'pe-puppet',
+    group  => 'pe-puppet',
   }
 
   file { '/etc/puppetlabs/puppetserver/ssh':
+    ensure => present,
+    owner  => 'pe-puppet',
+    group  => 'pe-puppet',
+  }
+
+  package { 'gcc-c++':
+    ensure => present,
+  }->
+  package { 'activesupport':
+    ensure   => present,
+    provider => puppetserver_gem,
+  }->
+  package { 'kubeclient':
+    ensure   => present,
+    provider => puppetserver_gem,
+  }
+
+  $kube_master_ip = generate('/bin/sh', '-c', 'ping -c 1 kubernetes_master | head -1 | cut -d\')\' -f 1 | cut -d\'(\' -f 2')
+  file { '/etc/puppetlabs/puppet/kubernetes.conf':
     ensure  => present,
-    owner   => 'pe-puppet',
-    group   => 'pe-puppet',
+    content => template('profile/kubernetes.conf.erb'),
   }
 
 }
