@@ -96,10 +96,22 @@ class profile::kubernetes_master {
   }
 
   # Manage Services
-  service { ['kube-apiserver','kube-controller-manager','kube-scheduler']:
+  service { 'kube-controller-manager':
     ensure  => running,
     enable  => true,
     require => Package['kubernetes'],
+  }
+
+  service { 'kube-scheduler']:
+    ensure  => running,
+    enable  => true,
+    require => [Package['kubernetes'],Service['kube-controller-manager']],
+  }
+
+  service { 'kube-apiserver':
+    ensure  => running,
+    enable  => true,
+    require => [Package['kubernetes'],Service['kube-scheduler']],
   }
 
   service { 'etcd':
