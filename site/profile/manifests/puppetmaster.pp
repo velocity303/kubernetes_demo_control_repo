@@ -70,6 +70,7 @@ class profile::puppetmaster {
   }
 
   $kube_master_ip = generate('/bin/sh', '-c', 'ping -c 1 kubernetes_master | head -1 | cut -d\')\' -f 1 | cut -d\'(\' -f 2')
+  notify { "the value is ${kube_master_ip}": }
   file { '/etc/puppetlabs/puppet/kubernetes.conf':
     ensure  => present,
     content => template('profile/kubernetes.conf.erb'),
