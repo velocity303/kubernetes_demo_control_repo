@@ -17,7 +17,7 @@ class profile::kubernetes_node (
     setting => 'FLANNEL_ETCD',
     value   => "\"http://${kub_master_ip}:2379\"",
     require => Package['flannel'],
-    notify  => Service['flannel'],
+    notify  => Service['flanneld'],
   }
 
   # Configure Kubernetes
