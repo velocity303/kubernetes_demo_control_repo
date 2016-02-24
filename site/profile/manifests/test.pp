@@ -1,17 +1,27 @@
 class profile::test {
 
 
-  kubernetes_pod { 'sample-pod':
+  kubernetes_pod { 'owncloud-pod':
     ensure      => present,
-    metadata    => {
-      namespace => 'default',
-    },
+    metadata    => { namespace => 'default',},
     spec         => {
       containers => [{
-        name     => 'container-name',
-        image    => 'nginx',
-        }]
+          name     => 'owncloud-app',
+          image    => 'owncloud',
+        },
+        {
+          name    => 'mysql-db',
+          image   => 'mysql',
+          env     => {
+            name  => 'MYSQL_ROOT_PASSWORD',
+            value => 'secret',
+          }
+          ports            => {
+            containerPort => 3306,
+            name           => 'mysql',
+          }
+        }
+      ]
     },
   }
-
 }
