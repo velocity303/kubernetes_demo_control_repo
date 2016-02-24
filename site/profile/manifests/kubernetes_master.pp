@@ -98,6 +98,14 @@ class profile::kubernetes_master {
     require => [Package['kubernetes'],Service['kube-scheduler']],
   }
 
+  file { '/root/.kube':
+    ensure => directory,
+  }
+  file { '/root/.kube/config':
+    ensure  => present,
+    content => template('profile/kubernetes_master_config.erb'),
+  }
+
   $ipaddr = $::networking[interfaces][enp0s8][ip]
   @@file { '/etc/puppetlabs/facter/facts.d/kube_master_ip.yaml':
       ensure  => present,
