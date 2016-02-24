@@ -16,10 +16,6 @@ class profile::test {
             name  => 'MYSQL_ROOT_PASSWORD',
             value => 'secret',
           }
-          ports            => {
-            containerPort => 3306,
-            name           => 'mysql',
-          }
         }
       ]
     },
