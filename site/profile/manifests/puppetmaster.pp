@@ -76,5 +76,9 @@ class profile::puppetmaster {
     ensure => directory,
   }->
   File <<| tag == 'kubernetes' |>>
+  file { '/etc/puppetlabs/puppet/kubernetes.conf':
+    ensure  => present,
+    content => template('profile/kubernetes.conf'),
+  }
 
 }
