@@ -102,7 +102,7 @@ class profile::kubernetes_master {
     require => Package['kubernetes'],
   }
 
-  service { 'kube-scheduler']:
+  service { 'kube-scheduler':
     ensure  => running,
     enable  => true,
     require => [Package['kubernetes'],Service['kube-controller-manager']],
