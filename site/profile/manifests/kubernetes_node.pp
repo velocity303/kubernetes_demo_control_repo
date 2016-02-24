@@ -49,7 +49,7 @@ class profile::kubernetes_node (
     notify  => Service['kubelet'],
   }
 
-  ini_setting { 'kubelet_port setting':
+  ini_setting { 'kubelet_hostname setting':
     ensure  => present,
     path    => '/etc/kubernetes/kubelet',
     setting => 'KUBELET_HOSTNAME',
