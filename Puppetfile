@@ -11,6 +11,7 @@ mod "puppetlabs/firewall", :latest
 mod "nanliu/staging", :latest
 mod "lwf/remote_file", :latest
 mod "garethr/kubernetes", :latest
+mod "cristifalcas/etcd", :latest
 
 #An example of using a specific forge module version instead of latest
 #Notice the addition of single quotes
