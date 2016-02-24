@@ -63,10 +63,6 @@ class profile::puppetmaster {
   package { 'activesupport':
     ensure   => present,
     provider => puppetserver_gem,
-  }->
-  package { 'kubeclient -f':
-    ensure          => '1.0.0',
-    provider        => puppetserver_gem,
   }
 
   file { '/etc/puppetlabs/facter':
