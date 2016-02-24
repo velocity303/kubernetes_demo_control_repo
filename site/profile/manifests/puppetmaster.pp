@@ -78,7 +78,7 @@ class profile::puppetmaster {
   File <<| tag == 'kubernetes' |>>
   file { '/etc/puppetlabs/puppet/kubernetes.conf':
     ensure  => present,
-    content => template('profile/kubernetes.conf'),
+    content => template('profile/kubernetes.conf.erb'),
   }
 
 }
