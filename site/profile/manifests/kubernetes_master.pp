@@ -22,6 +22,7 @@ class profile::kubernetes_master {
     setting => 'KUBE_API_ADDRESS',
     value   => '"--address=0.0.0.0"',
     notify  => Service['kube-apiserver'],
+    require => Package['kubernetes'],
   }
 
   ini_setting { 'kube_api_port setting':
@@ -30,6 +31,7 @@ class profile::kubernetes_master {
     setting => 'KUBE_API_PORT',
     value   => '"--port=8080"',
     notify  => Service['kube-apiserver'],
+    require => Package['kubernetes'],
   }
 
   ini_setting { 'kubelet_port setting':
@@ -38,6 +40,7 @@ class profile::kubernetes_master {
     setting => 'KUBELET_PORT',
     value   => '"--kubelet_port=10250"',
     notify  => Service['kube-apiserver'],
+    require => Package['kubernetes'],
   }
 
   ini_setting { 'kube_etcd_servers setting':
@@ -46,6 +49,7 @@ class profile::kubernetes_master {
     setting => 'KUBE_ETCD_SERVERS',
     value   => '"--etcd_servers=http://127.0.0.1:2379"',
     notify  => Service['kube-apiserver'],
+    require => Package['kubernetes'],
   }
 
   ini_setting { 'kube_service_addresses setting':
@@ -54,6 +58,7 @@ class profile::kubernetes_master {
     setting => 'KUBE_SERVICE_ADDRESSES',
     value   => '"--service-cluster-ip-range=10.254.0.0/16"',
     notify  => Service['kube-apiserver'],
+    require => Package['kubernetes'],
   }
 
   ini_setting { 'kube_admission_control setting':
@@ -62,6 +67,7 @@ class profile::kubernetes_master {
     setting => 'KUBE_ADMISSION_CONTROL',
     value   => '"--admission_control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ResourceQuota"',
     notify  => Service['kube-apiserver'],
+    require => Package['kubernetes'],
   }
 
   ini_setting { 'kube_api_args setting':
@@ -70,6 +76,7 @@ class profile::kubernetes_master {
     setting => 'KUBE_API_ARGS',
     value   => '""',
     notify  => Service['kube-apiserver'],
+    require => Package['kubernetes'],
   }
 
   # Manage Services
