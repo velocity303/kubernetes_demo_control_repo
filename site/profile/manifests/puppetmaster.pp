@@ -64,7 +64,7 @@ class profile::puppetmaster {
     ensure   => present,
     provider => puppetserver_gem,
   }->
-  package { '--force kubeclient':
+  package { 'kubeclient -f':
     ensure          => '1.0.0',
     provider        => puppetserver_gem,
   }
