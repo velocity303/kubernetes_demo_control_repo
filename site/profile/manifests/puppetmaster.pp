@@ -65,9 +65,8 @@ class profile::puppetmaster {
     provider => puppetserver_gem,
   }->
   package { 'kubeclient':
-    ensure          => present,
+    ensure          => '1.0.0',
     install_options => '-f',
-    version         => '1.0.0',
     provider        => puppetserver_gem,
   }
 
