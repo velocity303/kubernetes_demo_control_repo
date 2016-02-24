@@ -5,38 +5,12 @@ class profile::kubernetes_master {
   }
 
   # Configure /etc/etcd/etcd.conf for use as kubernetes master
-  ini_setting { 'etcd_name setting':
-    ensure  => present,
-    path    => '/etc/etcd/etcd.conf',
-    setting => 'ETCD_NAME',
-    value   => 'default',
-    notify  => Service['etcd'],
+  class { 'etcd':
+    ensure                  => 'latest',
+    etcd_listen_client_urls => 'http://0.0.0.0:2379',
+    etcd_name               => 'default',
+    advertise_client_urls   => 'http://localhost:2379',
   }
-
-  ini_setting { 'etcd_data_dir setting':
-    ensure  => present,
-    path    => '/etc/etcd/etcd.conf',
-    setting => 'ETCD_DATA_DIR',
-    value   => '"/var/lib/etcd/default.etcd"',
-    notify  => Service['etcd'],
-  }
-
-  ini_setting { 'etcd_listen_client_urls setting':
-    ensure  => present,
-    path    => '/etc/etcd/etcd.conf',
-    setting => 'ETCD_LISTEN_CLIENT_URLS',
-    value   => '"http://0.0.0.0:2379"',
-    notify  => Service['etcd'],
-  }
-
-  ini_setting { 'etcd_advertise_client_urls setting':
-    ensure  => present,
-    path    => '/etc/etcd/etcd.conf',
-    setting => 'ETCD_ADVERTISE_CLIENT_URLS',
-    value   => '"http://localhost:2379"',
-    notify  => Service['etcd'],
-  }
-
 
   # Configure Kubernetes API server inside /etc/kubernetes/apiserver
   ini_setting { 'kube_api_address setting':
@@ -112,12 +86,6 @@ class profile::kubernetes_master {
     ensure  => running,
     enable  => true,
     require => [Package['kubernetes'],Service['kube-scheduler']],
-  }
-
-  service { 'etcd':
-    ensure  => running,
-    enable  => true,
-    require => Package['etcd'],
   }
 
 }
